@@ -1,48 +1,115 @@
 <template>
-<div class="info">
+<div class="outer">
   <h1>Admin</h1>
-  <div class="content">
-    <img :src="'/images/' +movie.image">
-    <div class="details">
-      <p>MPA Rating: {{movie.mpa_rating}}</p>
-      <p>Genre: {{movie.genre}}</p>
-      <p>IMDb Rating: {{movie.imbd_rating}} / 10</p>
-      <p>{{movie.synopsis}}</p>
-      <router-link to="/">Back</router-link>
+
+  <div class="buttonWrapper">
+    <div class="buttonBox">
+      <button @click="editMovie()">Edit a Movie</button>
+    </div>
+
+    <div class="buttonBox">
+      <button>Delete a Movie</button>
+    </div>
+
+    <div class="buttonBox">
+      <button>Add a Movie</button>
     </div>
   </div>
+
+
+  <div class="add">
+    <div class="form">
+      <label>Title: </label>
+      <input v-model="title">
+      <p></p>
+      <label>MPA Rating: </label>
+      <input v-model="mpa">
+      <p></p>
+      <label>Genre: </label>
+      <input v-model="genre">
+      <p></p>
+      <label>IMDb Rating: </label>
+      <input v-model="imdb" placeholder="Number between 1-10">
+      <p></p>
+      <label>Summary: </label>
+      <textarea v-model="summary">Description</textarea>
+
+      <p></p>
+      <input type="file" name ="photo" @change="fileChanged">
+      <button @click="addMovie">Add</button>
+
+      <!--
+      <select v-model="mpa" id="mpa">
+        <option v-bind:value="G">G</option>
+        <option v-bind:value="PG">PG</option>
+        <option v-bind:value="PG-13">PG-13</option>
+        <option v-bind:value="R">R</option>
+        <option v-bind:value="other">Other</option>
+      </select>
+
+      -->
+    </div>
+  </div>
+
 </div>
 </template>
 
 <script>
-// import mpaEnums from "../mpa-enums.js"
+import axios from 'axios';
+
 export default {
-  name: 'Info',
+  name: 'Admin',
   data() {
     return {
-      movie: {}
+      title: "",
+      file: null,
+      mpa: "",
+      genre: "",
+      imdb: "",
+      summary: "",
     }
   },
-  created() {
-    this.movie = this.$root.$data.movies.find(movie => movie.id === parseInt(this.$route.params.id));
-  },
-  computed: {
-    mpa() {
-      return this.movie.mpa_rating.toUpper();
+
+  methods:{
+    async addMovie(){
+      try{
+        const formData = new FormData();
+        formData.append('photo', this.file, this.file.name)
+        let r1 = await axios.post('api/photos', formData);
+        let r2 = await axios.post('/api/movies', {
+          title: this.title,
+          file: null,
+          mpa: "",
+          genre: "",
+          imdb: "",
+          summary: "",
+        })
+      }
     }
   }
+
 }
 </script>
 
 <style scoped>
+.buttonWrapper{
+  display: flex;
+  justify-content:center;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+.buttonBox{
+  padding: 15px 32px;
+}
+button{
+  background-color: rgb(130, 201, 168);
+  font-family: 'Staatliches', cursive;
+  font-size: 25px;
+}
+
 img {
   height: 400px;
 }
-
-/* p {
-  width: 400px;
-  justify-content: center;
-} */
 
 .info {
   justify-content: center;
