@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Movie from '../views/Movie.vue'
+import Admin from '../views/Admin.vue'
 
 Vue.use(VueRouter)
 
@@ -15,6 +16,11 @@ const routes = [
     path: '/movie/:id',
     name: 'movie',
     component: Movie
+  },
+  {
+    path:'/admin',
+    name: 'Admin',
+    component: Admin
   }
 ]
 

@@ -3,6 +3,7 @@
     <!-- <img class="home-img" src="/images/main-cropped.jpg"> -->
     <h1>Movie Picker</h1>
     <hr/>
+    <router-link to='/admin'>Admin</router-link>
     <div class="filter-wrapper">
       <h2>Filter by:</h2>
       <div class="filter-grid">
@@ -22,7 +23,7 @@
           <br>
           <span>Selected: {{ mpa }}</span>
         </div>
-        <div class="filter-box">
+        <!-- <div class="filter-box">
           <h3>Genre</h3>
           <input type="radio" id="drama" value="drama" v-model="genre">
           <label for="one">Drama</label>
@@ -43,7 +44,7 @@
           <label for="two">Fantasy</label>
           <br>
           <span>Selected: {{ genre }}</span>
-        </div>
+        </div> -->
 
       </div>
       <button id="clear" v-on:click="clear">Clear Filters</button>
