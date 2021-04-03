@@ -4,7 +4,7 @@
 
   <div class="buttonWrapper">
     <div class="buttonBox">
-      <button @click="editMovie()">Edit a Movie</button>
+      <button>Edit a Movie</button>
     </div>
 
     <div class="buttonBox">
@@ -12,12 +12,12 @@
     </div>
 
     <div class="buttonBox">
-      <button>Add a Movie</button>
+      <button @click="showAddForm">Add a Movie</button>
     </div>
   </div>
 
 
-  <div class="add">
+  <div class="add" v-if=adding>
     <div class="form">
       <label>Title: </label>
       <input v-model="title">
@@ -35,7 +35,7 @@
       <textarea v-model="summary">Description</textarea>
 
       <p></p>
-      <input type="file" name ="photo" @change="fileChanged">
+      <input type="file" name="photo" @change="fileChanged">
       <button @click="addMovie">Add</button>
 
       <!--
@@ -46,7 +46,6 @@
         <option v-bind:value="R">R</option>
         <option v-bind:value="other">Other</option>
       </select>
-
       -->
     </div>
   </div>
@@ -62,28 +61,41 @@ export default {
   data() {
     return {
       title: "",
-      file: null,
       mpa: "",
       genre: "",
       imdb: "",
       summary: "",
+      adding: false,
+      file: null,
     }
   },
-
   methods:{
+    fileChanged(event) {
+      this.file = event.target.files[0]
+    },
+    showAddForm(){
+      this.adding = true;
+      this.editing = false;
+      this.deleting = false;
+    },
     async addMovie(){
       try{
         const formData = new FormData();
         formData.append('photo', this.file, this.file.name)
-        let r1 = await axios.post('api/photos', formData);
+        let r1 = await axios.post('/api/photos', formData);
         let r2 = await axios.post('/api/movies', {
           title: this.title,
-          file: null,
-          mpa: "",
-          genre: "",
-          imdb: "",
-          summary: "",
-        })
+          path: r1.data.path,
+          mpa: this.mpa,
+          genre: this.genre,
+          imdb: this.imdb,
+          summary: this.summary,
+        });
+        this.addItem = r2.data;
+        console.log(r2);
+      }
+      catch(error){
+        console.log(error);
       }
     }
   }
