@@ -7,7 +7,7 @@
     </div> -->
     <router-view/>
     <div class="footer">
-      <a href="https://github.com/hamblinjm/movie-picker">GitHub Repo</a>
+      <a href="https://github.com/hamblinjm/checkout-movie">GitHub Repo</a>
       <p>Images and snynopsis from IMDb</p>
     </div>
   </div>
