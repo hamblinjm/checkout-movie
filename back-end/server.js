@@ -38,6 +38,7 @@ const movieSchema = new mongoose.Schema({
 const Movie = mongoose.model('Movie', movieSchema);
 
 app.post('/api/photos', upload.single('photo'), async (req, res) => {
+  console.log("calling photos");
   if (!req.file) {
     return res.sendStatus(400);
   }
