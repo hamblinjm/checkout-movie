@@ -4,7 +4,7 @@
             <img :src="'images/' +movie.image">
             <h3>{{movie.title}}</h3>
         </div> -->
-        <router-link v-for="movie in movies" :key="movie.id" :to="'/movie/' + movie.id" style="display: inline-block;text-decoration:none;">
+        <router-link v-for="movie in movies" :key="movie.id" :to="/movie/" style="display: inline-block;text-decoration:none;" @click.native="updateMovie(movie)">
             <!-- <img :src="'images/' +movie.image"> -->
             <img :src="movie.path">
             <h3>{{movie.title}}</h3>
@@ -37,6 +37,9 @@ export default {
             } catch (error) {
                 console.log(error);
             }
+        },
+        updateMovie(newMovie){
+          this.$root.$data.movie = newMovie;
         }
     }
 }

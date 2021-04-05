@@ -76,4 +76,22 @@ app.get('/api/movies', async (req, res) => {
   }
 });
 
+app.get('/api/movies/:id', async (req, res) => {
+  try {
+    let movie = await Movie.findOne({
+      _id: req.params.id
+    });
+    movie.title = req.body.title;
+    movie.path = req.body.path;
+    movie.mpa = req.body.mpa;
+    movie.genre = req.body.genre;
+    movie.imdb = req.body.imdb;
+    movie.summary = req.body.summary;
+    res.send(movie);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
+
 app.listen(3000, () => console.log('Server listening on port 3000!'));

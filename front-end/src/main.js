@@ -6,12 +6,12 @@ Vue.config.productionTip = false
 
 // import mock from './mock-data.js'
 
-// let data = {
-//   movies: mock
-// }
+let data = {
+  movie: "",
+}
 
 new Vue({
   router,
-  // data,
+  data,
   render: h => h(App)
 }).$mount('#app')

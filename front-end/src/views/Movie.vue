@@ -2,12 +2,12 @@
 <div class="info">
   <h1>{{movie.title}}</h1>
   <div class="content">
-    <img :src="'/images/' +movie.image">
+    <img :src="movie.path">
     <div class="details">
-      <p>MPA Rating: {{movie.mpa_rating}}</p>
+      <p>MPA Rating: {{movie.mpa}}</p>
       <p>Genre: {{movie.genre}}</p>
-      <p>IMDb Rating: {{movie.imbd_rating}} / 10</p>
-      <p>{{movie.synopsis}}</p>
+      <p>IMDb Rating: {{movie.imbd}} / 10</p>
+      <p>{{movie.summary}}</p>
       <router-link to="/">Back</router-link>
     </div>
   </div>
@@ -24,7 +24,8 @@ export default {
     }
   },
   created() {
-    this.movie = this.$root.$data.movies.find(movie => movie.id === parseInt(this.$route.params.id));
+      this.movie = this.$root.$data.movie;
+      this.$forceUpdate();
   },
   computed: {
     mpa() {
@@ -72,4 +73,3 @@ a {
   font-family: 'Roboto Slab', serif;
 }
 </style>
-
