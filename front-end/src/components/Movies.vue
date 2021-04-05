@@ -5,17 +5,39 @@
             <h3>{{movie.title}}</h3>
         </div> -->
         <router-link v-for="movie in movies" :key="movie.id" :to="'/movie/' + movie.id" style="display: inline-block;text-decoration:none;">
-            <img :src="'images/' +movie.image">
+            <!-- <img :src="'images/' +movie.image"> -->
+            <img :src="movie.path">
             <h3>{{movie.title}}</h3>
         </router-link>
     </div>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
     name: 'MovieList',
-    props: {
-        movies: Array
+    // props: {
+    //     movies: Array
+    // },
+    data() {
+        return {
+            movies: [],
+        }
+    },
+    created() {
+        return this.getMovies();
+    },
+    methods: {
+        async getMovies() {
+            try {
+                let response = await axios.get("/api/movies");
+                this.movies = response.data;
+                return true;
+            } catch (error) {
+                console.log(error);
+            }
+        }
     }
 }
 </script>
@@ -40,6 +62,11 @@ h3 {
     color: white;
     text-decoration: none;
     width: 182px;
+}
+
+img {
+    width: 182px;
+    height: 268px;
 }
 
 </style>

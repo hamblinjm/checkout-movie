@@ -66,4 +66,14 @@ app.post('/api/movies', async (req, res) => {
   }
 });
 
+app.get('/api/movies', async (req, res) => {
+  try {
+    let movies = await Movie.find();
+    res.send(movies);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
+
 app.listen(3000, () => console.log('Server listening on port 3000!'));

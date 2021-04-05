@@ -1,6 +1,7 @@
 <template>
 <div class="outer">
   <h1>Admin</h1>
+  <router-link id='homeButton' to='/'>Home</router-link>
 
   <div class="buttonWrapper">
     <div class="buttonBox">
@@ -149,5 +150,19 @@ img {
 a {
   color: #42b983;
   font-family: 'Roboto Slab', serif;
+}
+
+/* button {
+  font-family: 'Staatliches', cursive;
+  width: 100px;
+} */
+#homeButton{
+  margin-left: 90%;
+  font-size: 40px;
+  color: rgb(130, 201, 168);
+  font-family: 'Staatliches', cursive;
+}
+#homeButton:hover{
+  color: white;
 }
 </style>
