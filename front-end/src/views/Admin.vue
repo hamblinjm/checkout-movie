@@ -9,7 +9,7 @@
     </div>
 
     <div class="buttonBox">
-      <button>Delete a Movie</button>
+      <button @click="showDeleteForm">Delete a Movie</button>
     </div>
 
     <div class="buttonBox">
@@ -39,6 +39,15 @@
       <input type="file" name="photo" @change="fileChanged">
       <button @click="addMovie">Add</button>
 
+<div class="delete" v-if=deleting>
+  <div class="deleteForm">
+     <div v-for="movie in this.$root.$data.allMovies" :key="movie._id">
+        <img :src="movie.path">
+        <h3>{{movie.title}}</h3>
+        <button class="deleteButton"  @click="deleteMovie(movie)">Delete</button>
+      </div>
+  </div>
+</div>
       <!--
       <select v-model="mpa" id="mpa">
         <option v-bind:value="G">G</option>
@@ -59,6 +68,7 @@ import axios from 'axios';
 
 export default {
   name: 'Admin',
+  movies: [],
   data() {
     return {
       title: "",
@@ -68,7 +78,12 @@ export default {
       summary: "",
       adding: false,
       file: null,
+      movies: [],
     }
+  },
+  created() {
+    // this.getMovies();
+    // this.movies = this.$root.$data.allMovies;
   },
   methods:{
     fileChanged(event) {
@@ -78,6 +93,20 @@ export default {
       this.adding = true;
       this.editing = false;
       this.deleting = false;
+    },
+    showDeleteForm() {
+      this.adding = false;
+      this.editing = false;
+      this.deleting = false;
+    },
+    async getMovies() {
+      try {
+          let response = await axios.get("/api/movies");
+          this.$root.$data.allMovies = response.data;
+          return true;
+      } catch (error) {
+          console.log(error);
+      }
     },
     async addMovie(){
       try{
@@ -98,6 +127,10 @@ export default {
       catch(error){
         console.log(error);
       }
+    },
+
+    async deleteMovie(movie) {
+      console.log(movie);
     }
   }
 
@@ -164,5 +197,9 @@ a {
 }
 #homeButton:hover{
   color: white;
+}
+
+.deleteButton {
+  background-color: red;
 }
 </style>

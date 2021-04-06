@@ -8,6 +8,7 @@ Vue.config.productionTip = false
 
 let data = {
   movie: "",
+  allMovies: [],
 }
 
 new Vue({

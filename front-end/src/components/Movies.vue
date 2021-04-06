@@ -40,6 +40,7 @@ export default {
             try {
                 let response = await axios.get("/api/movies");
                 this.movies = response.data;
+                this.$root.$data.allMovies = this.movies;
                 return true;
             } catch (error) {
                 console.log(error);
