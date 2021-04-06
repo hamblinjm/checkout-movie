@@ -28,9 +28,9 @@ export default {
       this.$forceUpdate();
   },
   computed: {
-    mpa() {
-      return this.movie.mpa_rating.toUpper();
-    }
+    // mpa() {
+    //   return this.movie.mpa_rating.toUpper();
+    // }
   }
 }
 </script>

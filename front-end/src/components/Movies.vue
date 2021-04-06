@@ -1,14 +1,21 @@
 <template>
     <div class="movies">
-        <!-- <div v-for="movie in movies" :key="movie.id">
+        <!--
+        <div v-for="movie in movies" :key="movie.id">
             <img :src="'images/' +movie.image">
             <h3>{{movie.title}}</h3>
-        </div> -->
-        <router-link v-for="movie in movies" :key="movie.id" :to="/movie/" style="display: inline-block;text-decoration:none;" @click.native="updateMovie(movie)">
-            <!-- <img :src="'images/' +movie.image"> -->
-            <img :src="movie.path">
-            <h3>{{movie.title}}</h3>
+        </div>
+        <router-link v-for="movie in movies" :key="movie._id" to="/movie/" style="display: inline-block;text-decoration:none;" @click.native="updateMovie(movie)">
+        <img :src="'images/' +movie.image">
+
         </router-link>
+        -->
+            <div v-for="movie in movies" :key="movie._id" style="display: inline-block;text-decoration:none;" @click="updateMovie(movie)">
+              <img :src="movie.path">
+              <h3>{{movie.title}}</h3>
+            </div>
+
+
     </div>
 </template>
 
@@ -40,6 +47,7 @@ export default {
         },
         updateMovie(newMovie){
           this.$root.$data.movie = newMovie;
+          this.$router.push("movie");
         }
     }
 }
