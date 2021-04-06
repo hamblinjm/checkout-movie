@@ -17,7 +17,6 @@
     </div>
   </div>
 
-
   <div class="add" v-if=adding>
     <div class="form">
       <label>Title: </label>
@@ -34,20 +33,21 @@
       <p></p>
       <label>Summary: </label>
       <textarea v-model="summary">Description</textarea>
-
       <p></p>
       <input type="file" name="photo" @change="fileChanged">
       <button @click="addMovie">Add</button>
+    </div>
+  </div>
 
-<div class="delete" v-if=deleting>
-  <div class="deleteForm">
-     <div v-for="movie in this.$root.$data.allMovies" :key="movie._id">
+  <div class="delete" v-if=deleting>
+    <div class="deleteForm">
+      <div v-for="movie in movies" :key="movie._id">
         <img :src="movie.path">
         <h3>{{movie.title}}</h3>
         <button class="deleteButton"  @click="deleteMovie(movie)">Delete</button>
       </div>
+    </div>
   </div>
-</div>
       <!--
       <select v-model="mpa" id="mpa">
         <option v-bind:value="G">G</option>
@@ -57,9 +57,6 @@
         <option v-bind:value="other">Other</option>
       </select>
       -->
-    </div>
-  </div>
-
 </div>
 </template>
 
@@ -68,7 +65,6 @@ import axios from 'axios';
 
 export default {
   name: 'Admin',
-  movies: [],
   data() {
     return {
       title: "",
@@ -77,13 +73,15 @@ export default {
       imdb: "",
       summary: "",
       adding: false,
+      deleting: false,
+      editing: false,
       file: null,
       movies: [],
     }
   },
   created() {
-    // this.getMovies();
-    // this.movies = this.$root.$data.allMovies;
+    return this.getMovies();
+    //this.movies = this.$root.$data.allMovies;
   },
   methods:{
     fileChanged(event) {
@@ -97,12 +95,15 @@ export default {
     showDeleteForm() {
       this.adding = false;
       this.editing = false;
-      this.deleting = false;
+      this.deleting = true;
     },
     async getMovies() {
       try {
           let response = await axios.get("/api/movies");
-          this.$root.$data.allMovies = response.data;
+          this.movies = response.data;
+          this.$root.$data.allMovies = this.movies;
+          // this.$root.$data.allMovies = response.data;
+          // this.movies = this.$root.$data.allMovies;
           return true;
       } catch (error) {
           console.log(error);
@@ -122,6 +123,7 @@ export default {
           summary: this.summary,
         });
         this.addItem = r2.data;
+        // this.getMovies();
         console.log(r2);
       }
       catch(error){
@@ -130,6 +132,8 @@ export default {
     },
 
     async deleteMovie(movie) {
+      // this.getMovies();
+      // this.movies = this.$root.$data.allMovies;
       console.log(movie);
     }
   }
@@ -144,6 +148,11 @@ export default {
   flex-wrap: wrap;
   flex-direction: row;
 }
+.deleteForm {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
 .buttonBox{
   padding: 15px 32px;
 }
@@ -155,6 +164,7 @@ button{
 
 img {
   height: 400px;
+  width: 300px;
 }
 
 .info {
