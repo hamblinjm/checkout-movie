@@ -132,9 +132,13 @@ export default {
     },
 
     async deleteMovie(movie) {
-      // this.getMovies();
-      // this.movies = this.$root.$data.allMovies;
-      console.log(movie);
+      try {
+        await axios.delete("/api/movies/" + movie._id);
+        this.getMovies();
+        return true;
+      } catch(error) {
+        console.log(error);
+      }      
     }
   }
 

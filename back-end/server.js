@@ -94,4 +94,16 @@ app.get('/api/movies/:id', async (req, res) => {
   }
 });
 
+app.delete('/api/movies/:id', async (req, res) => {
+  try {
+    await Movie.deleteOne({
+      _id: req.params.id
+    });
+    res.sendStatus(200);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
+
 app.listen(3000, () => console.log('Server listening on port 3000!'));
