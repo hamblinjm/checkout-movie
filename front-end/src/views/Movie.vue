@@ -6,7 +6,7 @@
     <div class="details">
       <p>MPA Rating: {{movie.mpa}}</p>
       <p>Genre: {{movie.genre}}</p>
-      <p>IMDb Rating: {{movie.imbd}} / 10</p>
+      <p>IMDb Rating: {{movie.imdb}} / 10</p>
       <p>{{movie.summary}}</p>
       <router-link to="/">Back</router-link>
     </div>
@@ -38,6 +38,7 @@ export default {
 <style scoped>
 img {
   height: 400px;
+  width: 300px;
 }
 
 /* p {
