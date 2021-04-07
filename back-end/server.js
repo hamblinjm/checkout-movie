@@ -108,7 +108,7 @@ app.delete('/api/movies/:id', async (req, res) => {
 
 app.put('/api/movies/:id', async (req, res) => {
   try {
-    item = await Movie.findOne({
+    movie = await Movie.findOne({
       _id: req.params.id
     });
     movie.title = req.body.title;

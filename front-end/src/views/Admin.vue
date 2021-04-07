@@ -54,7 +54,7 @@
       <div v-for="movie in movies" :key="movie._id">
         <img :src="movie.path">
         <h3>{{movie.title}}</h3>
-        <router-link class="editButton" to="/edit" tag="button">Edit</router-link>
+        <button class="editButton"  @click="redirectToEdit(movie)">Edit</button>
       </div>
     </div>
   </div>
@@ -153,9 +153,13 @@ export default {
         return true;
       } catch(error) {
         console.log(error);
-      }      
-    }
+      }
+    },
 
+    redirectToEdit(currentMovie){
+      this.$root.$data.movie = currentMovie;
+      this.$router.push({ path: '/edit'});
+    },
   }
 
 }
