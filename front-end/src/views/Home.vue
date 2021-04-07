@@ -3,52 +3,31 @@
     <h1>Movie Picker</h1>
     <router-link to='/admin' id="adminButton">Admin</router-link>
     <hr/>
-    <div class="filter-wrapper">
-      <h2>Filter by:</h2>
-      <div class="filter-grid">
-        <div class="filter-box">
-          <h3>MPA Rating</h3>
-          <input type="radio" id="g" value="G" v-model="mpa">
-          <label for="g">G</label>
-          <br>
-          <input type="radio" id="pg" value="PG" v-model="mpa">
-          <label for="pg">PG</label>
-          <br>
-          <input type="radio" id="pg13" value="PG-13" v-model="mpa">
-          <label for="pg13">PG-13</label>
-          <br>
-          <input type="radio" id="other" value="Other" v-model="mpa">
-          <label for="other">Other</label>
-          <br>
-          <span>Selected: {{ mpa }}</span>
-        </div>
-          <div class="filter-box">
-          <h3>Genre</h3>
-          <input type="radio" id="drama" value="drama" v-model="genre">
-          <label for="one">Drama</label>
-          <br>
-          <input type="radio" id="comedy" value="comedy" v-model="genre">
-          <label for="two">Comedy</label>
-          <br>
-          <input type="radio" id="horror" value="horror" v-model="genre">
-          <label for="two">Horror</label>
-          <br>
-          <input type="radio" id="thriller" value="thriller" v-model="genre">
-          <label for="two">Thriller</label>
-          <br>
-          <input type="radio" id="scifi" value="scifi" v-model="genre">
-          <label for="two">Scifi</label>
-          <br>
-          <input type="radio" id="fantasy" value="fantasy" v-model="genre">
-          <label for="two">Fantasy</label>
-          <br>
-          <span>Selected: {{ genre }}</span>
-        </div>
 
+    <div class="buttonWrapper">
+      <div class="buttonBox">
+        <button @click="showLoginForm">Login</button>
       </div>
-      <button id="clear" v-on:click="clear">Clear Filters</button>
 
+      <div class="buttonBox">
+        <button @click="showSignupForm">Signup</button>
+      </div>
+
+  </div>
+
+    <div class="loginForm" v-if="login">
+      <form>
+        <label>Username:</label>
+        <input id="username" type="text">
+        <br/>
+        <label>Password:</label>
+        <input id="password" type="text">
+        <br/>
+        <button class="submitButton" @click="submitLogin">Submit</button>
+      </form>
     </div>
+
+    <!-- <h1>View Selection</h1> -->
     <MovieList :movies="movies" />
   </div>
 </template>
@@ -66,7 +45,9 @@ export default {
   data() {
     return {
       mpa: '',
-      genre: ''
+      genre: '',
+      login: false,
+      signup: false,
     }
   },
   computed: {
@@ -95,6 +76,14 @@ export default {
     clear() {
       this.mpa = '';
       this.genre = '';
+    },
+    showLoginForm() {
+      this.login = true;
+      this.signup = false;
+    },
+    showSignupForm() {
+      this.login = false;
+      this.signup = true;
     }
   }
 }
@@ -126,6 +115,7 @@ h3 {
 h1 {
   margin: 50px;
   color: rgb(130, 201, 168);
+  margin-bottom: 10px;
 }
 
 hr {
@@ -151,5 +141,37 @@ button {
 }
 #adminButton:hover{
   color: white;
+}
+
+.buttonWrapper{
+  display: flex;
+  justify-content:center;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+.signupForm,
+.loginForm {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.buttonBox{
+  padding: 15px 32px;
+  margin: 10px;
+}
+button{
+  background-color: rgb(130, 201, 168);
+  font-family: 'Staatliches', cursive;
+  font-size: 25px;
+}
+
+input {
+  margin: 10px;
+}
+
+.loginForm {
+  border:rgb(130, 201, 168);
+  border-radius: 15px;
+  background-color: green;
 }
 </style>

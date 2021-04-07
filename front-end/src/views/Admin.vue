@@ -235,10 +235,10 @@ a {
 }
 
 .deleteButton {
-  background-color: red;
+  background-color:#c92d25;
 }
 
 .editButton {
-  background-color: blueviolet;
+  background-color: #f3f710;
 }
 </style>
