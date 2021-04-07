@@ -7,7 +7,7 @@
     <div class="add">
       <div class="form">
         <label>Title: </label>
-        <input v-model="title" :placeholder="[[movie.title]]">
+        <input type="text" v-model="title">
         <p></p>
         <label>MPA Rating: </label>
         <input v-model="mpa" :placeholder="[[movie.mpa]]">
@@ -37,7 +37,7 @@
 
   </div>
 
-  <router-link to="/">Back</router-link>
+  <router-link to="/admin">Back</router-link>
 </div>
 </template>
 
@@ -47,11 +47,11 @@ export default {
   name: 'Info',
   data() {
     return {
-      title: "",
-      mpa: "",
-      genre: "",
-      imdb: "",
-      summary: "",
+      title: this.$root.$data.movie.title,
+      mpa: this.$root.$data.movie.mpa,
+      genre: this.$root.$data.movie.genre,
+      imdb: this.$root.$data.movie.imdb,
+      summary: this.$root.$data.movie.summary,
       movie: {}
     }
   },
