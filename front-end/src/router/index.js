@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Movie from '../views/Movie.vue'
 import Admin from '../views/Admin.vue'
+import Edit from '../views/Edit.vue'
 
 Vue.use(VueRouter)
 
@@ -21,7 +22,12 @@ const routes = [
     path:'/admin',
     name: 'Admin',
     component: Admin
-  }
+  },
+  {
+    path: '/edit',
+    name: 'Edit',
+    component: Edit
+  },
 ]
 
 const router = new VueRouter({

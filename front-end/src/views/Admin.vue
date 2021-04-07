@@ -5,7 +5,7 @@
 
   <div class="buttonWrapper">
     <div class="buttonBox">
-      <button>Edit a Movie</button>
+      <button @click="showEditForm">Edit a Movie</button>
     </div>
 
     <div class="buttonBox">
@@ -45,6 +45,16 @@
         <img :src="movie.path">
         <h3>{{movie.title}}</h3>
         <button class="deleteButton"  @click="deleteMovie(movie)">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="edit" v-if=editing>
+    <div class="editForm">
+      <div v-for="movie in movies" :key="movie._id">
+        <img :src="movie.path">
+        <h3>{{movie.title}}</h3>
+        <router-link class="editButton" to="/edit" tag="button">Edit</router-link>
       </div>
     </div>
   </div>
@@ -97,6 +107,11 @@ export default {
       this.editing = false;
       this.deleting = true;
     },
+    showEditForm() {
+      this.adding = false;
+      this.editing = true;
+      this.deleting = false;
+    },
     async getMovies() {
       try {
           let response = await axios.get("/api/movies");
@@ -140,6 +155,7 @@ export default {
         console.log(error);
       }      
     }
+
   }
 
 }
@@ -152,7 +168,8 @@ export default {
   flex-wrap: wrap;
   flex-direction: row;
 }
-.deleteForm {
+.deleteForm,
+.editForm {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -215,5 +232,9 @@ a {
 
 .deleteButton {
   background-color: red;
+}
+
+.editButton {
+  background-color: blueviolet;
 }
 </style>
