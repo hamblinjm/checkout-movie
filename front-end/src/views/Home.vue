@@ -12,18 +12,38 @@
       <div class="buttonBox">
         <button @click="showSignupForm">Signup</button>
       </div>
+    </div>
 
-  </div>
-
-    <div class="loginForm" v-if="login">
+    <div class="loginForm" v-if=login>
       <form>
         <label>Username:</label>
-        <input id="username" type="text">
+        <input v-model="username" type="text">
         <br/>
         <label>Password:</label>
-        <input id="password" type="text">
+        <input v-model="password" type="text">
         <br/>
         <button class="submitButton" @click="submitLogin">Submit</button>
+      </form>
+    </div>
+
+    <div class="signupForm" v-if=signup>
+      <form>
+        <label>First Name:</label>
+        <input v-model="firstName" type="text">
+        <br/>
+        <label>Last Name:</label>
+        <input v-model="lastName" type="text">
+        <br/>
+        <label>Username:</label>
+        <input v-model="username" type="text">
+        <br/>
+        <label>Password:</label>
+        <input v-model="password" type="text">
+        <br/>
+        <label>E-mail:</label>
+        <input v-model="email" type="text">
+        <br/>
+        <button class="submitButton" @click="submitSignup">Submit</button>
       </form>
     </div>
 
@@ -36,7 +56,7 @@
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld.vue'
 import MovieList from '@/components/Movies.vue'
-
+//import axios from 'axios';
 export default {
   name: 'Home',
   components: {
@@ -48,6 +68,11 @@ export default {
       genre: '',
       login: false,
       signup: false,
+      firstName: '',
+      lastName: '',
+      username: '',
+      password: '',
+      email: '',
     }
   },
   computed: {
@@ -84,6 +109,20 @@ export default {
     showSignupForm() {
       this.login = false;
       this.signup = true;
+    },
+    async submitLogin(){
+      try{
+        console.log("In login");
+      }catch(error){
+        console.log(error);
+      }
+    },
+    async submitSignup(){
+      try{
+        console.log("In signup");
+      }catch(error){
+        console.log(error);
+      }
     }
   }
 }
@@ -154,6 +193,7 @@ button {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+    margin-bottom: 75px;
 }
 .buttonBox{
   padding: 15px 32px;
@@ -168,10 +208,12 @@ button{
 input {
   margin: 10px;
 }
-
-.loginForm {
-  border:rgb(130, 201, 168);
-  border-radius: 15px;
-  background-color: green;
+label{
+  font-size: 20px;
+}
+.submitButton{
+  margin-top: 15px;
+  background-color: white;
+  font-size: 20px;
 }
 </style>

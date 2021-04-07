@@ -126,5 +126,32 @@ app.put('/api/movies/:id', async (req, res) => {
   }
 });
 
+const userSchema = new mongoose.Schema({
+  firstName: String,
+  lastName: String,
+  username: String,
+  password: String,
+  email: String,
+});
+
+const User = mongoose.model('User', userSchema);
+
+// Create a user (signup)
+app.post('/api/users', async (req, res) => {
+  const user = new User({
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    username: req.body.username,
+    password: req.body.password,
+    email: req.body.email,
+  });
+  try {
+    await user.save();
+    res.send(user);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
 
 app.listen(3000, () => console.log('Server listening on port 3000!'));
