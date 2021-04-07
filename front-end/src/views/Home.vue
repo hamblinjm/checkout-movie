@@ -56,7 +56,7 @@
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld.vue'
 import MovieList from '@/components/Movies.vue'
-//import axios from 'axios';
+import axios from 'axios';
 export default {
   name: 'Home',
   components: {
@@ -73,6 +73,7 @@ export default {
       username: '',
       password: '',
       email: '',
+      addUser: null,
     }
   },
   computed: {
@@ -119,7 +120,14 @@ export default {
     },
     async submitSignup(){
       try{
-        console.log("In signup");
+        let user = await axios.post('/api/users', {
+          firstName: this.firstName,
+          lastName: this.lastName,
+          username: this.username,
+          password: this.password,
+          email: this.email,
+        });
+        this.addUser = user.data;
       }catch(error){
         console.log(error);
       }

@@ -154,4 +154,33 @@ app.post('/api/users', async (req, res) => {
   }
 });
 
+// Get all users 
+app.get('/api/users', async (req, res) => {
+  try {
+    let user = await User.find();
+    res.send(user);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
+
+// Get a user
+app.post('/api/users/login', async (req, res) => {
+  console.log("before try catch");
+  try {
+    let user = await User.findOne({username: req.body.username, password: req.body.password});
+    console.log(user);
+    console.log("testing");
+    if (!user) {
+      res.status(403).send("Incorrect password");
+    }
+    res.send(user);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
+
+
 app.listen(3000, () => console.log('Server listening on port 3000!'));
