@@ -20,7 +20,7 @@
         <input v-model="username" type="text">
         <br/>
         <label>Password:</label>
-        <input v-model="password" type="text">
+        <input v-model="password" type="password">
         <br/>
         <button class="submitButton" @click="submitLogin">Submit</button>
       </form>
@@ -38,7 +38,7 @@
         <input v-model="username" type="text">
         <br/>
         <label>Password:</label>
-        <input v-model="password" type="text">
+        <input v-model="password" type="password">
         <br/>
         <label>E-mail:</label>
         <input v-model="email" type="text">
@@ -53,8 +53,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
-// import HelloWorld from '@/components/HelloWorld.vue'
 import MovieList from '@/components/Movies.vue'
 import axios from 'axios';
 export default {
@@ -113,14 +111,22 @@ export default {
     },
     async submitLogin(){
       try{
-        console.log("In login");
+        console.log("login");
+        const user = await axios.post('/api/users/login', {
+            username: this.username,
+            password: this.password,
+        });
+        console.log(user.data);
+        console.log(this.$root.$data.currentUser);
+        this.$root.$data.currentUser = user.data;
+        this.$router.push({ path: '/checkout'});
       }catch(error){
         console.log(error);
       }
     },
     async submitSignup(){
       try{
-        let user = await axios.post('/api/users', {
+        const user = await axios.post('/api/users', {
           firstName: this.firstName,
           lastName: this.lastName,
           username: this.username,

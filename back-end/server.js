@@ -154,7 +154,7 @@ app.post('/api/users', async (req, res) => {
   }
 });
 
-// Get all users 
+// Get all users
 app.get('/api/users', async (req, res) => {
   try {
     let user = await User.find();
@@ -171,11 +171,11 @@ app.post('/api/users/login', async (req, res) => {
   try {
     let user = await User.findOne({username: req.body.username, password: req.body.password});
     console.log(user);
-    console.log("testing");
     if (!user) {
-      res.status(403).send("Incorrect password");
+      res.status(403).send("Incorrect username or password");
+    }else{
+      res.send(user);
     }
-    res.send(user);
   } catch (error) {
     console.log(error);
     res.sendStatus(500);

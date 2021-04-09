@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Movie from '../views/Movie.vue'
 import Admin from '../views/Admin.vue'
 import Edit from '../views/Edit.vue'
+import Checkout from '../views/Checkout.vue'
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,11 @@ const routes = [
     path: '/edit',
     name: 'Edit',
     component: Edit
+  },
+  {
+    path: '/checkout',
+    name: 'Checkout',
+    component: Checkout
   },
 ]
 
