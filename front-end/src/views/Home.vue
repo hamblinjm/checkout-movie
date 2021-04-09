@@ -15,7 +15,8 @@
     </div>
 
     <div class="loginForm" v-if=login>
-      <form>
+      <!-- <form> -->
+      <div class="form">
         <label>Username:</label>
         <input v-model="username" type="text">
         <br/>
@@ -23,11 +24,13 @@
         <input v-model="password" type="password">
         <br/>
         <button class="submitButton" @click="submitLogin">Submit</button>
-      </form>
+      <!-- </form> -->
+      </div>
     </div>
 
     <div class="signupForm" v-if=signup>
-      <form>
+      <!-- <form> -->
+      <div class="form">
         <label>First Name:</label>
         <input v-model="firstName" type="text">
         <br/>
@@ -44,7 +47,8 @@
         <input v-model="email" type="text">
         <br/>
         <button class="submitButton" @click="submitSignup">Submit</button>
-      </form>
+      </div>
+      <!-- </form> -->
     </div>
 
     <!-- <h1>View Selection</h1> -->
