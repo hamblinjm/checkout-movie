@@ -81,6 +81,17 @@ app.get('/api/movies', async (req, res) => {
   }
 });
 
+// get all movies that have null user
+app.get('/api/movies/available', async (req, res) => {
+  try {
+    let movies = await Movie.find( {user:null} );
+    res.send(movies);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
+
 //gets one movie
 app.get('/api/movies/:id', async (req, res) => {
   try {

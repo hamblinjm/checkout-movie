@@ -8,6 +8,7 @@
       <p>Genre: {{movie.genre}}</p>
       <p>IMDb Rating: {{movie.imdb}} / 10</p>
       <p>{{movie.summary}}</p>
+      <button v-if="user">Checkout</button>
       <router-link to="/">Back</router-link>
     </div>
   </div>
@@ -28,9 +29,9 @@ export default {
       this.$forceUpdate();
   },
   computed: {
-    // mpa() {
-    //   return this.movie.mpa_rating.toUpper();
-    // }
+    user() {
+      return this.$root.$data.currentUser;
+    }
   }
 }
 </script>
