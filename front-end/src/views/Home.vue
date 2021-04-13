@@ -24,6 +24,7 @@
         <input v-model="password" type="password">
         <br/>
         <button class="submitButton" @click="submitLogin">Submit</button>
+        <p v-if=incorrect>Incorrect username or password</p>
       <!-- </form> -->
       </div>
     </div>
@@ -75,7 +76,7 @@ export default {
       username: '',
       password: '',
       email: '',
-      addUser: null,
+      incorrect: false,
     }
   },
   computed: {
@@ -115,6 +116,7 @@ export default {
     },
     async submitLogin(){
       try{
+        this.incorrect = false;
         console.log("login");
         const user = await axios.post('/api/users/login', {
             username: this.username,
@@ -125,6 +127,7 @@ export default {
         this.$root.$data.currentUser = user.data;
         this.$router.push({ path: '/checkout'});
       }catch(error){
+        this.incorrect = true;
         console.log(error);
       }
     },
@@ -137,7 +140,8 @@ export default {
           password: this.password,
           email: this.email,
         });
-        this.addUser = user.data;
+        this.$root.$data.currentUser = user.data;
+        this.$router.push({ path: '/checkout'});
       }catch(error){
         console.log(error);
       }

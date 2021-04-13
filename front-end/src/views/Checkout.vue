@@ -22,7 +22,7 @@
 
 <script>
 //import MovieList from '@/components/Movies.vue'
-import axios from 'axios';
+//import axios from 'axios';
 export default {
   name: 'Checkout',
   components: {
@@ -68,33 +68,14 @@ export default {
       this.login = false;
       this.signup = true;
     },
-    async submitLogin(){
+    logout(){
       try{
-        console.log("login");
-        let user = await axios.post('/api/users/login', {
-            username: this.username,
-            password: this.password,
-        });
-        this.$root.$data.currentUser = user.data;
-        this.$router.push({ path: '/checkout'});
+          this.$root.$data.currentUser = null;
+          this.$router.push({ path: '/'});
       }catch(error){
         console.log(error);
       }
     },
-    async submitSignup(){
-      try{
-        let user = await axios.post('/api/users', {
-          firstName: this.firstName,
-          lastName: this.lastName,
-          username: this.username,
-          password: this.password,
-          email: this.email,
-        });
-        this.addUser = user.data;
-      }catch(error){
-        console.log(error);
-      }
-    }
   }
 }
 </script>
