@@ -114,24 +114,24 @@ app.get('/api/movies/:id', async (req, res) => {
 });
 
 //checkout one movie
-// app.put('/api/movies/checkout/:userID', async (req, res) => {
-//   try{
-//     let movie = await Movie.findOne({_id:req.body.movieID});
-//     if (!movie) {
-//       res.send(404);
-//       return;
-//     }else{
-//       let user = await User.findOne({_id: req.params.id});
-//       movie.user = user;
-//       await movie.save();
-//       res.send(movie);
-//       console.log(movie);
-//     }
-//   }catch(error){
-//     console.log(error);
-//     res.sendStatus(500);
-//   }
-// })
+app.put('/api/movies/:movieID/checkout/:userID', async (req, res) => {
+  try{
+    let movie = await Movie.findOne({_id:req.params.movieID});
+    if (!movie) {
+      res.send(404);
+      return;
+    }else{
+      let user = await User.findOne({_id: req.params.userID});
+      movie.user = user;
+      await movie.save();
+      res.send(movie);
+      console.log(movie);
+    }
+  }catch(error){
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
 
 
 app.delete('/api/movies/:id', async (req, res) => {

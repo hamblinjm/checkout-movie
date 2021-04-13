@@ -8,7 +8,7 @@
       <p>Genre: {{movie.genre}}</p>
       <p>IMDb Rating: {{movie.imdb}} / 10</p>
       <p>{{movie.summary}}</p>
-      <button v-if="user">Checkout</button>
+      <button v-if="user" @click="checkout">Checkout</button>
       <router-link to="/">Back</router-link>
     </div>
   </div>
@@ -16,7 +16,7 @@
 </template>
 
 <script>
-// import mpaEnums from "../mpa-enums.js"
+import axios from 'axios';
 export default {
   name: 'Info',
   data() {
@@ -31,6 +31,17 @@ export default {
   computed: {
     user() {
       return this.$root.$data.currentUser;
+    }
+  },
+  methods: {
+    
+    async checkout() {
+      try {
+        await axios.put(`/api/movies/${this.movie._id}/checkout/${this.$root.$data.currentUser._id}`);
+        this.$router.push('/checkout');
+      } catch(error) {
+        console.log(error);
+      }
     }
   }
 }
