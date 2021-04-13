@@ -4,12 +4,13 @@
   <div class="content">
     <img :src="movie.path">
     <div class="details">
+      <button v-if="user" @click="checkout">Checkout</button>
       <p>MPA Rating: {{movie.mpa}}</p>
       <p>Genre: {{movie.genre}}</p>
       <p>IMDb Rating: {{movie.imdb}} / 10</p>
-      <p>{{movie.summary}}</p>
-      <button v-if="user" @click="checkout">Checkout</button>
-      <router-link to="/">Back</router-link>
+      <p>Synopsis: {{movie.summary}}</p>
+      <br />
+      <button class="backButton" @click="goBack">Back</button>
     </div>
   </div>
 </div>
@@ -34,7 +35,6 @@ export default {
     }
   },
   methods: {
-    
     async checkout() {
       try {
         await axios.put(`/api/movies/${this.movie._id}/checkout/${this.$root.$data.currentUser._id}`);
@@ -42,7 +42,10 @@ export default {
       } catch(error) {
         console.log(error);
       }
-    }
+    },
+    goBack(){
+      this.$router.push('/checkout');
+    },
   }
 }
 </script>
@@ -84,5 +87,15 @@ img {
 a {
   color: #42b983;
   font-family: 'Roboto Slab', serif;
+}
+button{
+  background-color: rgb(130, 201, 168);
+  font-family: 'Staatliches', cursive;
+  font-size: 25px;
+}
+.backButton{
+  margin-top: 15px;
+  background-color: white;
+  font-size: 20px;
 }
 </style>

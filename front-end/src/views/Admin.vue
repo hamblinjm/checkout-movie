@@ -138,6 +138,7 @@ export default {
           summary: this.summary,
         });
         this.addItem = r2.data;
+        this.$router.push({ path: '/admin'});
         // this.getMovies();
         console.log(r2);
       }
@@ -150,6 +151,7 @@ export default {
       try {
         await axios.delete("/api/movies/" + movie._id);
         this.getMovies();
+        this.$router.push({ path: '/admin'});
         return true;
       } catch(error) {
         console.log(error);

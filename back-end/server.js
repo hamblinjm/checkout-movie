@@ -94,6 +94,29 @@ app.get('/api/movies/available', async (req, res) => {
   }
 });
 
+// get all movies that have current user
+app.get('/api/movies/checked-out/:userID', async (req, res) => {
+  try {
+    let currentUser = await User.findOne({
+      _id: req.params.userID
+    });
+    if(!currentUser){
+      res.send(404);
+      return;
+    }else{
+      console.log("checking out");
+      console.log(currentUser);
+      let movies = await Movie.find({
+        user: currentUser._id
+      });
+      res.send(movies);
+    }
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
+
 //gets one movie
 app.get('/api/movies/:id', async (req, res) => {
   try {
@@ -211,7 +234,7 @@ app.post('/api/users/login', async (req, res) => {
   console.log("before try catch");
   try {
     let user = await User.findOne({username: req.body.username, password: req.body.password});
-    console.log(user);
+  //  console.log(user);
     if (!user) {
       res.status(403).send("Incorrect username or password");
     }else{

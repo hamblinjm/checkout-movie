@@ -5,11 +5,9 @@
     <button id="logout" @click="logout">Logout</button>
     <hr/>
 
-    <!--
-      Update models so we can iterate through this user's
-      checked out movies
-      <MovieList :movies="checkedOut" />
-    -->
+    <h2>Your Movies</h2>
+    <MovieList :movies="checkedOut" />
+
     <hr/>
     <h2>Available Movies</h2>
     <MovieList :movies="available" />
@@ -35,27 +33,20 @@ export default {
     available(){
       let availableMovies = this.getAvailable();
       return availableMovies;
+    },
+    checkedOut(){
+      let checkedMovies = this.getCheckedOut();
+      return checkedMovies;
     }
-    // movies() {
-    //   let checkedOut = this.$root.$data.movies;
-    //   // if (this.mpa === '' && this.genre === '') {
-    //   //   return this.$root.$data.movies;
-    //   // } else if (this.mpa === '') {
-    //   //   return this.$root.$data.movies.filter(movie => movie.genre === this.genre);
-    //   // }
-    //
-    //   if (this.mpa !== '') {
-    //     filteredMovies = filteredMovies.filter(movie => movie.mpa_rating === this.mpa);
-    //   }
-    //   if (this.genre !== '') {
-    //     filteredMovies = filteredMovies.filter(movie => movie.genre === this.genre);
-    //   }
-    //   return filteredMovies;
-    // }
+
   },
   methods: {
     async getAvailable(){
       let response = await axios.get("/api/movies/available");
+      return response.data;
+    },
+    async getCheckedOut(){
+      let response = await axios.get("/api/movies/checked-out/" + this.currentUser._id);
       return response.data;
     },
     logout(){
