@@ -71,6 +71,7 @@ export default {
           path: this.movie.path,
         });
         this.getItems();
+        this.$router.push({ path: '/admin'});
         return true;
       } catch (error) {
         /*console.log(error);*/

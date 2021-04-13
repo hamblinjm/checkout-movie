@@ -11,22 +11,20 @@
       <MovieList :movies="checkedOut" />
     -->
     <hr/>
+    <h2>Available Movies</h2>
+    <MovieList :movies="available" />
 
-    <!--
-      return movies with a null user
-      <MovieList :movies="available" />
-    -->
 
   </div>
 </template>
 
 <script>
-//import MovieList from '@/components/Movies.vue'
-//import axios from 'axios';
+import MovieList from '@/components/Movies.vue'
+import axios from 'axios';
 export default {
   name: 'Checkout',
   components: {
-
+    MovieList
   },
   data() {
     return {
@@ -34,6 +32,10 @@ export default {
     }
   },
   computed: {
+    available(){
+      let availableMovies = this.getAvailable();
+      return availableMovies;
+    }
     // movies() {
     //   let checkedOut = this.$root.$data.movies;
     //   // if (this.mpa === '' && this.genre === '') {
@@ -52,21 +54,9 @@ export default {
     // }
   },
   methods: {
-    select(mpa, genre) {
-      this.mpa = mpa;
-      this.genre = genre;
-    },
-    clear() {
-      this.mpa = '';
-      this.genre = '';
-    },
-    showLoginForm() {
-      this.login = true;
-      this.signup = false;
-    },
-    showSignupForm() {
-      this.login = false;
-      this.signup = true;
+    async getAvailable(){
+      let response = await axios.get("/api/movies/available");
+      return response.data;
     },
     logout(){
       try{

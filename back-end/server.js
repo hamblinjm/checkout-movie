@@ -38,6 +38,8 @@ const movieSchema = new mongoose.Schema({
   summary: String,
 });
 
+/* API ENDPOINTS FOR MOVIE */
+
 // Create a model for movies
 const Movie = mongoose.model('Movie', movieSchema);
 
@@ -112,24 +114,24 @@ app.get('/api/movies/:id', async (req, res) => {
 });
 
 //checkout one movie
-app.put('/api/movies/:userID', async (req, res) => {
-  try{
-    let movie = await Movie.findOne({_id:req.body.movieID});
-    if (!movie) {
-      res.send(404);
-      return;
-    }else{
-      let user = await User.findOne({_id: req.params.id});
-      movie.user = user;
-      await movie.save();
-      res.send(movie);
-      console.log(movie);
-    }
-  }catch(error){
-    console.log(error);
-    res.sendStatus(500);
-  }
-})
+// app.put('/api/movies/checkout/:userID', async (req, res) => {
+//   try{
+//     let movie = await Movie.findOne({_id:req.body.movieID});
+//     if (!movie) {
+//       res.send(404);
+//       return;
+//     }else{
+//       let user = await User.findOne({_id: req.params.id});
+//       movie.user = user;
+//       await movie.save();
+//       res.send(movie);
+//       console.log(movie);
+//     }
+//   }catch(error){
+//     console.log(error);
+//     res.sendStatus(500);
+//   }
+// })
 
 
 app.delete('/api/movies/:id', async (req, res) => {
@@ -144,6 +146,7 @@ app.delete('/api/movies/:id', async (req, res) => {
   }
 });
 
+//edit one movie
 app.put('/api/movies/:id', async (req, res) => {
   try {
     movie = await Movie.findOne({
