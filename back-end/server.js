@@ -26,6 +26,10 @@ const upload = multer({
 
 // Create a scheme for movies: a title and a path to an image.
 const movieSchema = new mongoose.Schema({
+  user:{
+    type: mongoose.Schema.ObjectId,
+    ref: 'User'
+  },
   title: String,
   path: String,
   mpa: String,
@@ -34,11 +38,10 @@ const movieSchema = new mongoose.Schema({
   summary: String,
 });
 
-// Create a model for items in the museum.
+// Create a model for movies
 const Movie = mongoose.model('Movie', movieSchema);
 
 app.post('/api/photos', upload.single('photo'), async (req, res) => {
-  console.log("calling photos");
   if (!req.file) {
     return res.sendStatus(400);
   }
@@ -56,6 +59,7 @@ app.post('/api/movies', async (req, res) => {
     genre: req.body.genre,
     imdb: req.body.imdb,
     summary: req.body.summary,
+    user: null,
   });
   try {
     await movie.save();
@@ -66,6 +70,7 @@ app.post('/api/movies', async (req, res) => {
   }
 });
 
+//gets all the movies in collection
 app.get('/api/movies', async (req, res) => {
   try {
     let movies = await Movie.find();
@@ -76,6 +81,7 @@ app.get('/api/movies', async (req, res) => {
   }
 });
 
+//gets one movie
 app.get('/api/movies/:id', async (req, res) => {
   try {
     let movie = await Movie.findOne({
@@ -93,6 +99,27 @@ app.get('/api/movies/:id', async (req, res) => {
     res.sendStatus(500);
   }
 });
+
+//checkout one movie
+app.put('/api/movies/:userID', async (req, res) => {
+  try{
+    let movie = await Movie.findOne({_id:req.body.movieID});
+    if (!movie) {
+      res.send(404);
+      return;
+    }else{
+      let user = await User.findOne({_id: req.params.id});
+      movie.user = user;
+      await movie.save();
+      res.send(movie);
+      console.log(movie);
+    }
+  }catch(error){
+    console.log(error);
+    res.sendStatus(500);
+  }
+})
+
 
 app.delete('/api/movies/:id', async (req, res) => {
   try {
