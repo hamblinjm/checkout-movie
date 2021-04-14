@@ -121,18 +121,17 @@ export default {
     async submitLogin(){
       try{
         this.incorrect = false;
-        console.log("login");
         const user = await axios.post('/api/users/login', {
             username: this.username,
             password: this.password,
         });
-        console.log(user.data);
-        console.log(this.$root.$data.currentUser);
+        //console.log(user.data);
+        //console.log(this.$root.$data.currentUser);
         this.$root.$data.currentUser = user.data;
         this.$router.push({ path: '/checkout'});
       }catch(error){
         this.incorrect = true;
-        console.log(error);
+        //console.log(error);
       }
     },
     async submitSignup(){
@@ -147,7 +146,7 @@ export default {
         this.$root.$data.currentUser = user.data;
         this.$router.push({ path: '/checkout'});
       }catch(error){
-        console.log(error);
+        //console.log(error);
       }
     },
     async getMovies() {
@@ -155,7 +154,7 @@ export default {
         let tmpMovies = await axios.get('/api/movies');
         this.movies = tmpMovies.data;
       } catch(error) {
-        console.log(error);
+        //console.log(error);
       }
 
       // this.movies = this.$root.$data.allMovies;

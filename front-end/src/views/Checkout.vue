@@ -42,7 +42,7 @@ export default {
     },
     async getCheckedOut(){
       let response = await axios.get(`/api/movies/checked-out/${this.currentUser._id}`);
-      console.log(response.data);
+      //console.log(response.data);
       this.checkedOutMovies = response.data;
     },
     logout(){
@@ -50,7 +50,7 @@ export default {
           this.$root.$data.currentUser = null;
           this.$router.push({ path: '/'});
       }catch(error){
-        console.log(error);
+        //console.log(error);
       }
     },
   }

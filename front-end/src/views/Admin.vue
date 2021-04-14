@@ -121,7 +121,7 @@ export default {
           // this.movies = this.$root.$data.allMovies;
           return true;
       } catch (error) {
-          console.log(error);
+          //console.log(error);
       }
     },
     async addMovie(){
@@ -139,11 +139,10 @@ export default {
         });
         this.addItem = r2.data;
         this.$router.push({ path: '/'});
-        // this.getMovies();
-        console.log(r2);
+        //console.log(r2);
       }
       catch(error){
-        console.log(error);
+        //console.log(error);
       }
     },
 

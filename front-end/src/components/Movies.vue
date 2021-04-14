@@ -30,25 +30,8 @@ export default {
     props: {
         movies: Array
     },
-    // data() {
-    //     return {
-    //         movies: [],
-    //     }
-    // },
-    // created() {
-    //     return this.getMovies();
-    // },
+
     methods: {
-    //     async getMovies() {
-    //         try {
-    //             let response = await axios.get("/api/movies");
-    //             this.movies = response.data;
-    //             this.$root.$data.allMovies = this.movies;
-    //             return true;
-    //         } catch (error) {
-    //             console.log(error);
-    //         }
-    //     },
         updateMovie(newMovie){
           this.$root.$data.movie = newMovie;
           this.$router.push("movie");

@@ -41,9 +41,6 @@ export default {
     user() {
       return this.$root.$data.currentUser;
     }
-    // isCheckedOut(){
-    //   return this.user._id === this.movie.user._id;
-    // }
   },
   methods: {
     async checkout() {
@@ -51,7 +48,7 @@ export default {
         await axios.put(`/api/movies/${this.movie._id}/checkout/${this.$root.$data.currentUser._id}`);
         this.$router.push('/checkout');
       } catch(error) {
-        console.log(error);
+        //console.log(error);
       }
     },
     async returnMovie(){
@@ -59,7 +56,7 @@ export default {
         await axios.put(`/api/movies/${this.movie._id}/return/`);
         this.$router.push('/checkout');
       }catch(error){
-        console.log(error);
+        //console.log(error);
       }
     },
     goBack(){
