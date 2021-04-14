@@ -25,9 +25,12 @@ export default {
       movie: {}
     }
   },
-  created() {
-      this.movie = this.$root.$data.movie;
-      this.$forceUpdate();
+  async created() {
+    try{
+      this.movie = (await axios.get(`/api/movies/${this.$route.params.id}`)).data;
+    }catch(error){
+        this.error = error.response.data.message;
+    }
   },
   computed: {
     user() {

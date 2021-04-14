@@ -14,16 +14,16 @@ const routes = [
     name: 'Home',
     component: Home
   },
-  {
-    path: '/movie',
-    name: 'movie',
-    component: Movie
-  },
   // {
-  //   path: '/movie/:id',
+  //   path: '/movie',
   //   name: 'movie',
   //   component: Movie
   // },
+  {
+    path: '/movie/:id',
+    name: 'movie',
+    component: Movie
+  },
   {
     path:'/admin',
     name: 'Admin',

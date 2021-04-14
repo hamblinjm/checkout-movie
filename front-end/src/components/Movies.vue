@@ -10,9 +10,12 @@
 
         </router-link>
         -->
-            <div v-for="movie in movies" :key="movie._id" style="display: inline-block;text-decoration:none;" @click="updateMovie(movie)">
-              <img :src="movie.path">
-              <h3>{{movie.title}}</h3>
+
+            <div v-for="movie in movies" :key="movie._id" style="display: inline-block;text-decoration:none;">
+              <router-link :to="'/movie/' + movie._id">
+                <img :src="movie.path">
+                <h3>{{movie.title}}</h3>
+              </router-link>
             </div>
 
 
