@@ -20,37 +20,37 @@
 </template>
 
 <script>
-import axios from "axios";
+// import axios from "axios";
 
 export default {
     name: 'MovieList',
-    // props: {
-    //     movies: Array
+    props: {
+        movies: Promise
+    },
+    // data() {
+    //     return {
+    //         movies: [],
+    //     }
     // },
-    data() {
-        return {
-            movies: [],
-        }
-    },
-    created() {
-        return this.getMovies();
-    },
-    methods: {
-        async getMovies() {
-            try {
-                let response = await axios.get("/api/movies");
-                this.movies = response.data;
-                this.$root.$data.allMovies = this.movies;
-                return true;
-            } catch (error) {
-                console.log(error);
-            }
-        },
-        updateMovie(newMovie){
-          this.$root.$data.movie = newMovie;
-          this.$router.push("movie");
-        }
-    }
+    // created() {
+    //     return this.getMovies();
+    // },
+    // methods: {
+    //     async getMovies() {
+    //         try {
+    //             let response = await axios.get("/api/movies");
+    //             this.movies = response.data;
+    //             this.$root.$data.allMovies = this.movies;
+    //             return true;
+    //         } catch (error) {
+    //             console.log(error);
+    //         }
+    //     },
+    //     updateMovie(newMovie){
+    //       this.$root.$data.movie = newMovie;
+    //       this.$router.push("movie");
+    //     }
+    // }
 }
 </script>
 

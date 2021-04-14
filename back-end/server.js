@@ -104,11 +104,12 @@ app.get('/api/movies/checked-out/:userID', async (req, res) => {
       res.send(404);
       return;
     }else{
-      console.log("checking out");
-      console.log(currentUser);
+      // console.log("checking out");
+      // console.log(currentUser);
       let movies = await Movie.find({
         user: currentUser._id
-      });
+      }).populate('user');
+      // console.log(movies);
       res.send(movies);
     }
   } catch (error) {

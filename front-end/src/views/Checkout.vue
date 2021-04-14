@@ -46,7 +46,8 @@ export default {
       return response.data;
     },
     async getCheckedOut(){
-      let response = await axios.get("/api/movies/checked-out/" + this.currentUser._id);
+      let response = await axios.get(`/api/movies/checked-out/${this.currentUser._id}`);
+      console.log(response.data);
       return response.data;
     },
     logout(){
