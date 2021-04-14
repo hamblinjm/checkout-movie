@@ -34,8 +34,7 @@ export default {
     }catch(error){
         this.error = error.response.data.message;
     }
-
-    // this.getIsCheckedOut();
+    this.getIsCheckedOut();
 
   },
   computed: {
@@ -74,7 +73,7 @@ export default {
       // console.log("in movie vue");
       // console.log(this.user);
       // console.log(this.movie.user);
-      if(this.user._id === this.movie.user._id){
+      if(this.user._id === this.movie.user){
         this.isCheckedOut = true;
       }
     }
