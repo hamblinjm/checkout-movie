@@ -153,7 +153,7 @@ export default {
         this.$router.push({ path: '/'});
         return true;
       } catch(error) {
-        console.log(error);
+        //console.log(error);
       }
     },
 

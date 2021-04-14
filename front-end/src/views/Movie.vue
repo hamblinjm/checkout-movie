@@ -70,8 +70,10 @@ export default {
       // console.log("in movie vue");
       // console.log(this.user);
       // console.log(this.movie.user);
-      if(this.user._id === this.movie.user){
-        this.isCheckedOut = true;
+      if(this.user){
+        if(this.user._id === this.movie.user){
+          this.isCheckedOut = true;
+        }
       }
     }
   }
