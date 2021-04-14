@@ -12,7 +12,7 @@
         -->
 
             <div v-for="movie in movies" :key="movie._id" style="display: inline-block;text-decoration:none;">
-              <router-link :to="'/movie/' + movie._id">
+              <router-link :to="'/movie/' + movie._id" style="display: inline-block;text-decoration:none;">
                 <img :src="movie.path">
                 <h3>{{movie.title}}</h3>
               </router-link>

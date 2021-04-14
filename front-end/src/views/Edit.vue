@@ -70,8 +70,7 @@ export default {
           summary: this.summary,
           path: this.movie.path,
         });
-        // this.getItems();
-        this.$router.push({ path: '/admin'});
+        this.$router.push({ path: '/'});
         return true;
       } catch (error) {
         /*console.log(error);*/

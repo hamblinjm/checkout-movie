@@ -179,7 +179,6 @@ app.put('/api/movies/:id', async (req, res) => {
     movie.summary = req.body.summary;
     await movie.save();
     res.send(movie);
-    res.sendStatus(200);
   } catch (error) {
     console.log(error);
     res.sendStatus(500);
