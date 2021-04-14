@@ -76,6 +76,7 @@ app.post('/api/movies', async (req, res) => {
 app.get('/api/movies', async (req, res) => {
   try {
     let movies = await Movie.find();
+    console.log(movies);
     res.send(movies);
   } catch (error) {
     console.log(error);

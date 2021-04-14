@@ -77,25 +77,29 @@ export default {
       password: '',
       email: '',
       incorrect: false,
+      movies: []
     }
   },
+  created() {
+    this.getMovies();
+  },
   computed: {
-    movies() {
-      let filteredMovies = this.$root.$data.movies;
-      // if (this.mpa === '' && this.genre === '') {
-      //   return this.$root.$data.movies;
-      // } else if (this.mpa === '') {
-      //   return this.$root.$data.movies.filter(movie => movie.genre === this.genre);
-      // }
+    // movies() {
+    //   let filteredMovies = this.$root.$data.movies;
+    //   // if (this.mpa === '' && this.genre === '') {
+    //   //   return this.$root.$data.movies;
+    //   // } else if (this.mpa === '') {
+    //   //   return this.$root.$data.movies.filter(movie => movie.genre === this.genre);
+    //   // }
 
-      if (this.mpa !== '') {
-        filteredMovies = filteredMovies.filter(movie => movie.mpa_rating === this.mpa);
-      }
-      if (this.genre !== '') {
-        filteredMovies = filteredMovies.filter(movie => movie.genre === this.genre);
-      }
-      return filteredMovies;
-    }
+    //   if (this.mpa !== '') {
+    //     filteredMovies = filteredMovies.filter(movie => movie.mpa_rating === this.mpa);
+    //   }
+    //   if (this.genre !== '') {
+    //     filteredMovies = filteredMovies.filter(movie => movie.genre === this.genre);
+    //   }
+    //   return filteredMovies;
+    // }
   },
   methods: {
     select(mpa, genre) {
@@ -145,6 +149,16 @@ export default {
       }catch(error){
         console.log(error);
       }
+    },
+    async getMovies() {
+      try {
+        let tmpMovies = await axios.get('/api/movies');
+        this.movies = tmpMovies.data;
+      } catch(error) {
+        console.log(error);
+      }
+
+      // this.movies = this.$root.$data.allMovies;
     }
   }
 }

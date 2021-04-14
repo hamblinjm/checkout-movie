@@ -5,7 +5,7 @@
             <img :src="'images/' +movie.image">
             <h3>{{movie.title}}</h3>
         </div>
-        <router-link v-for="movie in movies" :key="movie._id" to="/movie/" style="display: inline-block;text-decoration:none;" @click.native="updateMovie(movie)">
+        <router-link v-for="movie in movies" :key="movie._id" to="{ name: 'movie', params: { id: movie._id }}" style="display: inline-block;text-decoration:none;" @click.native="updateMovie(movie)">
         <img :src="'images/' +movie.image">
 
         </router-link>
@@ -25,7 +25,7 @@
 export default {
     name: 'MovieList',
     props: {
-        movies: Promise
+        movies: Array
     },
     // data() {
     //     return {
@@ -35,7 +35,7 @@ export default {
     // created() {
     //     return this.getMovies();
     // },
-    // methods: {
+    methods: {
     //     async getMovies() {
     //         try {
     //             let response = await axios.get("/api/movies");
@@ -46,11 +46,11 @@ export default {
     //             console.log(error);
     //         }
     //     },
-    //     updateMovie(newMovie){
-    //       this.$root.$data.movie = newMovie;
-    //       this.$router.push("movie");
-    //     }
-    // }
+        updateMovie(newMovie){
+          this.$root.$data.movie = newMovie;
+          this.$router.push("movie");
+        }
+    }
 }
 </script>
 

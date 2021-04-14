@@ -6,11 +6,11 @@
     <hr/>
 
     <h2>Your Movies</h2>
-    <MovieList :movies="checkedOut" />
+    <MovieList :movies="checkedOutMovies" />
 
     <hr/>
     <h2>Available Movies</h2>
-    <MovieList :movies="available" />
+    <MovieList :movies="availableMovies" />
 
 
   </div>
@@ -27,28 +27,23 @@ export default {
   data() {
     return {
       currentUser: this.$root.$data.currentUser,
+      availableMovies: [],
+      checkedOutMovies: []
     }
   },
-  computed: {
-    available(){
-      let availableMovies = this.getAvailable();
-      return availableMovies;
-    },
-    checkedOut(){
-      let checkedMovies = this.getCheckedOut();
-      return checkedMovies;
-    }
-
+  created() {
+    this.getAvailable();
+    this.getCheckedOut();
   },
   methods: {
     async getAvailable(){
       let response = await axios.get("/api/movies/available");
-      return response.data;
+      this.availableMovies = response.data;
     },
     async getCheckedOut(){
       let response = await axios.get(`/api/movies/checked-out/${this.currentUser._id}`);
       console.log(response.data);
-      return response.data;
+      this.checkedOutMovies = response.data;
     },
     logout(){
       try{

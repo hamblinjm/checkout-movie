@@ -19,6 +19,11 @@ const routes = [
     name: 'movie',
     component: Movie
   },
+  // {
+  //   path: '/movie/:id',
+  //   name: 'movie',
+  //   component: Movie
+  // },
   {
     path:'/admin',
     name: 'Admin',
