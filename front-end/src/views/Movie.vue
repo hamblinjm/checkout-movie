@@ -4,7 +4,9 @@
   <div class="content">
     <img :src="movie.path">
     <div class="details">
-      <button v-if="user" @click="checkout">Checkout</button>
+      <button v-if="user && !isCheckedOut" @click="checkout">Checkout</button>
+      <button v-if="user && isCheckedOut" @click="returnMovie">Return</button>
+
       <p>MPA Rating: {{movie.mpa}}</p>
       <p>Genre: {{movie.genre}}</p>
       <p>IMDb Rating: {{movie.imdb}} / 10</p>
@@ -22,7 +24,8 @@ export default {
   name: 'Info',
   data() {
     return {
-      movie: {}
+      movie: {},
+      isCheckedOut: false
     }
   },
   async created() {
@@ -31,11 +34,17 @@ export default {
     }catch(error){
         this.error = error.response.data.message;
     }
+
+    // this.getIsCheckedOut();
+
   },
   computed: {
     user() {
       return this.$root.$data.currentUser;
     }
+    // isCheckedOut(){
+    //   return this.user._id === this.movie.user._id;
+    // }
   },
   methods: {
     async checkout() {
@@ -46,9 +55,29 @@ export default {
         console.log(error);
       }
     },
-    goBack(){
-      this.$router.push('/checkout');
+    async returnMovie(){
+      try{
+        await axios.put(`/api/movies/${this.movie._id}/return/`);
+        this.$router.push('/checkout');
+      }catch(error){
+        console.log(error);
+      }
     },
+    goBack(){
+      if(!this.user){
+        this.$router.push('/');
+      }else{
+        this.$router.push('/checkout');
+      }
+    },
+    getIsCheckedOut(){ //THIS FUNCTION IS THE PROBLEM!
+      // console.log("in movie vue");
+      // console.log(this.user);
+      // console.log(this.movie.user);
+      if(this.user._id === this.movie.user._id){
+        this.isCheckedOut = true;
+      }
+    }
   }
 }
 </script>

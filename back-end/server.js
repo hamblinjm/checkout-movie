@@ -152,7 +152,26 @@ app.put('/api/movies/:movieID/checkout/:userID', async (req, res) => {
   }
 });
 
+//return one movie
+app.put('/api/movies/:movieID/return/', async (req, res) => {
+  try{
+    let movie = await Movie.findOne({_id:req.params.movieID});
+    if (!movie) {
+      res.send(404);
+      return;
+    }else{
+      movie.user = null;
+      await movie.save();
+      res.send(movie);
+      console.log(movie);
+    }
+  }catch(error){
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
 
+//delete one movie
 app.delete('/api/movies/:id', async (req, res) => {
   try {
     await Movie.deleteOne({
